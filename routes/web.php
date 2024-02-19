@@ -25,3 +25,11 @@ Route::get( '/pruebas/{nombre?}', static function ($nombre = null) {
     $texto = "texto desde la ruta: ".$nombre;
     return "<h2>$texto</h2>";
 });
+
+Route::get( '/pruebas2/{nombre?}', static function ($nombre = null) {
+
+    $texto = "texto desde la ruta: " . $nombre;
+    return view('pruebas', array(
+        'texto' => $texto
+));
+});
