@@ -17,19 +17,21 @@ Route::get('/', static function () {
     return view('welcome');
 });
 
-Route::get( '/welcome', static function () {
+Route::get('/welcome', static function () {
     return phpinfo();
 });
 
-Route::get( '/pruebas/{nombre?}', static function ($nombre = null) {
-    $texto = "texto desde la ruta: ".$nombre;
+Route::get('/pruebas2/{nombre?}', static function ($nombre = null) {
+    $texto = "texto desde la ruta: " . $nombre;
     return "<h2>$texto</h2>";
 });
 
-Route::get( '/pruebas2/{nombre?}', static function ($nombre = null) {
+Route::get('/pruebas/{nombre?}', static function ($nombre = null) {
 
-    $texto = "texto desde la ruta: " . $nombre;
+    $texto = "texto desde la ruta y pasando por view: " . $nombre;
     return view('pruebas', array(
         'texto' => $texto
-));
+    ));
 });
+
+Route::get('/animales', 'App\Http\Controllers\PruebasController@index');
