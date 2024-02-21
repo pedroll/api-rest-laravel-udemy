@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PruebasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,4 +35,5 @@ Route::get('/pruebas/{nombre?}', static function ($nombre = null) {
     ));
 });
 
-Route::get('/animales', 'App\Http\Controllers\PruebasController@index');
+Route::get('/animales', [PruebasController::class, 'index']);
+Route::get('/testOrm', [PruebasController::class, 'testOrm']);
