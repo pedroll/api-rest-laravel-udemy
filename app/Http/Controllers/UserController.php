@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -35,7 +34,7 @@ class UserController extends Controller
         $params_array = array_map('trim', $params_array);
 
         //  Validar datos
-        $validate = Validator::make($params_array,
+        $validate = \Validator::make($params_array,
             [
                 'name' => 'required|alpha',
                 'surname' => 'required|alpha',
@@ -51,20 +50,19 @@ class UserController extends Controller
                 'code' => 400,
                 'message' => 'Error validacion de campos',
                 'errors' => $validate->errors(),
-
             ];
         } else {
             // si ha pasado la validacion
             //  cifrar contraseña
             $password_hash = password_hash($params_array['password'], PASSWORD_BCRYPT, ['cost' => 4]);
 
-            // todo Crear usuario
+            // Crear usuario
             $user = new User;
             $user->name = $params_array['name'];
             $user->surname = $params_array['surname'];
             $user->email = $params_array['email'];
             $user->password = $password_hash;
-
+            $user->role = 'ROLE_USER';
             // guardar usuario
             $user->save();
 
