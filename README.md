@@ -7,8 +7,35 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Artisan
 
+- lista de rutas
+```shell
+php artisan route:list
+```
+
+Markup :  ``
+
+code('var specificLanguage_code')
+
+    'var specificLanguage_code =
+    {
+    "data": {
+    "lookedUpPlatform": 1,
+    "query": "Kasabian+Test+Transmission",
+    "lookedUpItem": {
+    "name": "Test Transmission",
+    "artist": "Kasabian",
+    "album": "Kasabian",
+    "picture": null,
+    "link": "http://open.spotify.com/track/5jhJur5n4fasblLSCOcrTp"
+}
+}
+}
+    
+
+## About Laravel
+php artisan
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
