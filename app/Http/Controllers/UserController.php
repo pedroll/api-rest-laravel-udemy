@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -14,9 +17,9 @@ class UserController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function register(\Request $request)
+    public function register(Request $request)
     {
         $data = [
             'status' => 'Error',
@@ -29,40 +32,49 @@ class UserController extends Controller
         $params_array = json_decode($json, true); //asi a un array
 
         // limpiar datos
-        $params_array= array_map('trim', $params_array);
+        $params_array = array_map('trim', $params_array);
 
         //  Validar datos
-        $validate = \Validator::make($params_array,
+        $validate = Validator::make($params_array,
             [
-                'name' => 'required|alfa',
-                'surname' => 'required|alfa',
-                'email' => 'required|email',
+                'name' => 'required|alpha',
+                'surname' => 'required|alpha',
+                'email' => 'required|email|unique:users', // validacion unigue con referencia a la tabla
                 'password' => 'required',
 
             ]);
 
         if ($validate->fails()) {
+            //si la validacion a fallado
             $data = [
                 'status' => 'Error',
                 'code' => 400,
                 'message' => 'Error validacion de campos',
-                'errors'=> $validate->errors()
+                'errors' => $validate->errors(),
 
             ];
-        } else{
+        } else {
+            // si ha pasado la validacion
+            //  cifrar contraseña
+            $password_hash = password_hash($params_array['password'], PASSWORD_BCRYPT, ['cost' => 4]);
+
+            // todo Crear usuario
+            $user = new User;
+            $user->name = $params_array['name'];
+            $user->surname = $params_array['surname'];
+            $user->email = $params_array['email'];
+            $user->password = $password_hash;
+
+            // guardar usuario
+            $user->save();
+
             $data = [
                 'status' => 'Success',
                 'code' => 200,
                 'message' => 'El usuario se ha creado correctamente',
-                'errors'=> $validate->errors()
             ];
         }
 
-        // todo cifrar contraseña
-
-        // todo comprobar si existe
-
-        // todo Crear usuario
         return response()->json($data, $data['code']);
     }
 
@@ -77,7 +89,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index()
     {
@@ -89,7 +101,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(CreateUserRequest $request)
     {
@@ -104,7 +116,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show($id)
     {
@@ -117,7 +129,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update($id, UpdateUserRequest $request)
     {
@@ -131,7 +143,7 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy($id)
     {
