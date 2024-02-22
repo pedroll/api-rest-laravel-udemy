@@ -8,20 +8,62 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * @return string
-     */
     public function pruebas(): string
     {
         return 'accion de pruebas en user-controler';
     }
 
     /**
-     * @return string
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function register()
+    public function register(\Request $request)
     {
-        return 'accion de register en user-controler';
+        $data = [
+            'status' => 'Error',
+            'code' => 404,
+            'message' => 'El usuario NO se ha creado',
+        ];
+        //  recoger los datos por post
+        $json = $request->input('json', null); // llega en una unica key "json"
+        $params = json_decode($json); // volcamos a un objeto
+        $params_array = json_decode($json, true); //asi a un array
+
+        // limpiar datos
+        $params_array= array_map('trim', $params_array);
+
+        //  Validar datos
+        $validate = \Validator::make($params_array,
+            [
+                'name' => 'required|alfa',
+                'surname' => 'required|alfa',
+                'email' => 'required|email',
+                'password' => 'required',
+
+            ]);
+
+        if ($validate->fails()) {
+            $data = [
+                'status' => 'Error',
+                'code' => 400,
+                'message' => 'Error validacion de campos',
+                'errors'=> $validate->errors()
+
+            ];
+        } else{
+            $data = [
+                'status' => 'Success',
+                'code' => 200,
+                'message' => 'El usuario se ha creado correctamente',
+                'errors'=> $validate->errors()
+            ];
+        }
+
+        // todo cifrar contraseña
+
+        // todo comprobar si existe
+
+        // todo Crear usuario
+        return response()->json($data, $data['code']);
     }
 
     /**
