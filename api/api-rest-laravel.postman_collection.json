@@ -1,0 +1,952 @@
+{
+	"info": {
+		"_postman_id": "1ea7ee3e-9ccc-46d0-9010-bf3225b6545c",
+		"name": "api-rest-laravel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "352713"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"Pedro\",\"surname\": \"LLongo\",\"email\": \"pedrollongo@gmail.com\",\"password\" : \"pedro\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/login",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"admin\",\"surname\": \"LLongo\",\"email\": \"admin@admin.com\",\"password\" : \"admin112\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/login",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getimage",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"Pedro\",\"surname\": \"LLongo\",\"email\": \"pedrollongo@gmail.com\",\"password\" : \"pedro\"}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/user/avatar/1559723020cog.jpg",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"user",
+								"avatar",
+								"1559723020cog.jpg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"Pedro\",\"surname\": \"LLongo\",\"email\": \"pedrollongo@gmail.com\",\"password\" : \"pedro\"}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888//api/user/detail/4",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"",
+								"api",
+								"user",
+								"detail",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"Pedro\",\"surname\": \"LLongo\",\"email\": \"pedrollongo@gmail.com\",\"password\" : \"pedro\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/register",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzIzMDIxLCJleHAiOjE1NjAzMjc4MjF9.RXopKiO--FwH2TlMLpAIZ3YMEqSovaLZokPxKW0MN3w\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file0",
+									"type": "file",
+									"src": "/Users/pedro/Desktop/cog.pxm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/user/upload",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"user",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "A",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"Pedro\",\"surname\": \"LLongo\",\"email\": \"pedrollongo@gmail.com\",\"password\" : \"pedro\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/register",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM2LCJlbWFpbCI6Imp1YW5AanVhbi5jb20iLCJuYW1lIjoianVhbiIsInN1cm5hbWUiOiJqdWFuIiwiaWF0IjoxNTY0NDIwODI0LCJleHAiOjE1NjUwMjU2MjR9.6JxN8PiYgEIxpI9aj0hUe2ntdNuAqWrlEbf_DDjh_HI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"juan5\",\"juan5\": \"LLongo\",\"email\": \"juan@juan.com\",\"password\" : \"juan112\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/user/update",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "update Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvIiwic3VybmFtZSI6IkxMb25nbyIsImlhdCI6MTU1OTQ5OTk2NSwiZXhwIjoxNTYwMTA0NzY1fQ.Az9_vNePN-5Tnr3YkctNIjKJhG1hIUj0AXnSkw98yag",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"Pedro\",\"surname\": \"LLongo\",\"email\": \"pedrollongo@gmail.com\",\"password\" : \"pedro\"}",
+									"type": "text"
+								},
+								{
+									"key": "Authorization",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvIiwic3VybmFtZSI6IkxMb25nbyIsImlhdCI6MTU1OTQ5OTk2NSwiZXhwIjoxNTYwMTA0NzY1fQ.Az9_vNePN-5Tnr3YkctNIjKJhG1hIUj0AXnSkw98yag",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/user/update",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/category",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzIzMDIxLCJleHAiOjE1NjAzMjc4MjF9.RXopKiO--FwH2TlMLpAIZ3YMEqSovaLZokPxKW0MN3w\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"nueva categoria\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/category",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/category/1",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "upload Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzIzMDIxLCJleHAiOjE1NjAzMjc4MjF9.RXopKiO--FwH2TlMLpAIZ3YMEqSovaLZokPxKW0MN3w\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file0",
+									"type": "file",
+									"src": "/Users/pedro/Desktop/cog.pxm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/user/upload",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"user",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "A",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/post",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzU3Mzg5LCJleHAiOjE1NjAzNjIxODl9.-EYe5RmNTzgTP1T913r7FrqEVbifN7Wu4w9g1zfAaJw\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\n        \"category_id\": 1,\n        \"title\": \"nuevo post\",\n        \"content\": \"contenido nuevo post\",\n        \"image\": \"1559723020cog.jpg\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/post",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/post/1",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"post",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzU3Mzg5LCJleHAiOjE1NjAzNjIxODl9.-EYe5RmNTzgTP1T913r7FrqEVbifN7Wu4w9g1zfAaJw\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\n        \"category_id\": 1,\n        \"title\": \"Actulizado post\",\n        \"content\": \"contenido Actulizado post\",\n        \"image\": \"1559723020cog.jpg\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/post/1",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"post",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzU3Mzg5LCJleHAiOjE1NjAzNjIxODl9.-EYe5RmNTzgTP1T913r7FrqEVbifN7Wu4w9g1zfAaJw\""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\n        \"category_id\": 1,\n        \"title\": \"Actulizado post\",\n        \"content\": \"contenido Actulizado post\",\n        \"image\": \"1559723020cog.jpg\"\n}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/post/1",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"post",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getimage",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"Pedro\",\"surname\": \"LLongo\",\"email\": \"pedrollongo@gmail.com\",\"password\" : \"pedro\"}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/post/image/1560010472cog.jpg",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"post",
+								"image",
+								"1560010472cog.jpg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get posts by user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"Pedro\",\"surname\": \"LLongo\",\"email\": \"pedrollongo@gmail.com\",\"password\" : \"pedro\"}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/post/user/1",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"post",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get posts by category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"name\": \"Pedro\",\"surname\": \"LLongo\",\"email\": \"pedrollongo@gmail.com\",\"password\" : \"pedro\"}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api-rest-laravel.local:8888/api/post/category/1",
+							"protocol": "http",
+							"host": [
+								"api-rest-laravel",
+								"local"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"post",
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://api-rest-laravel.local",
+			"type": "string"
+		}
+	]
+}

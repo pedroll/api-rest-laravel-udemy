@@ -1,0 +1,199 @@
+# api-rest-laravel
+
+###
+# group: user
+# @name login
+POST http://api-rest-laravel.local/api/login
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name login Copy
+POST http://api-rest-laravel.local/api/login
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "admin","surname": "LLongo","email": "admin@admin.com","password" : "admin112"}
+
+###
+# group: user
+# @name getimage
+GET http://api-rest-laravel.local/api/user/avatar/1559723020cog.jpg
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name detail
+GET http://api-rest-laravel.local/api/user/detail/4
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name register
+POST http://api-rest-laravel.local/api/register
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name upload
+POST http://api-rest-laravel.local/api/user/upload?
+    A=
+    Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzIzMDIxLCJleHAiOjE1NjAzMjc4MjF9.RXopKiO--FwH2TlMLpAIZ3YMEqSovaLZokPxKW0MN3w"
+#Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name = "file0"; filename="cog.pxm"
+
+< /Users/pedro/Desktop/cog.pxm
+--WebAppBoundary
+
+###
+# group: user
+# @name upload Copy
+POST http://api-rest-laravel.local/api/register
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name update
+PUT http://api-rest-laravel.local/api/user/update
+Content-Type: application/x-www-form-urlencoded
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM2LCJlbWFpbCI6Imp1YW5AanVhbi5jb20iLCJuYW1lIjoianVhbiIsInN1cm5hbWUiOiJqdWFuIiwiaWF0IjoxNTY0NDIwODI0LCJleHAiOjE1NjUwMjU2MjR9.6JxN8PiYgEIxpI9aj0hUe2ntdNuAqWrlEbf_DDjh_HI
+
+json = {"name": "juan5","juan5": "LLongo","email": "juan@juan.com","password" : "juan112"}
+
+###
+# group: category
+# @name update Copy
+PUT http://api-rest-laravel.local/api/user/update
+Content-Type: application/x-www-form-urlencoded
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvIiwic3VybmFtZSI6IkxMb25nbyIsImlhdCI6MTU1OTQ5OTk2NSwiZXhwIjoxNTYwMTA0NzY1fQ.Az9_vNePN-5Tnr3YkctNIjKJhG1hIUj0AXnSkw98yag
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"} &
+Authorization = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvIiwic3VybmFtZSI6IkxMb25nbyIsImlhdCI6MTU1OTQ5OTk2NSwiZXhwIjoxNTYwMTA0NzY1fQ.Az9_vNePN-5Tnr3YkctNIjKJhG1hIUj0AXnSkw98yag
+
+###
+# group: category
+# @name category index
+GET http://api-rest-laravel.local/api/category
+Content-Type: application/x-www-form-urlencoded
+
+###
+# group: category
+# @name category store
+POST http://api-rest-laravel.local/api/category
+Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzIzMDIxLCJleHAiOjE1NjAzMjc4MjF9.RXopKiO--FwH2TlMLpAIZ3YMEqSovaLZokPxKW0MN3w"
+
+json = {"name": "nueva categoria"}
+
+###
+# group: category
+# @name category show
+GET http://api-rest-laravel.local/api/category/1
+Content-Type: application/x-www-form-urlencoded
+
+###
+# group: posts
+# @name upload Copy
+POST http://api-rest-laravel.local/api/user/upload?
+    A=
+    Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzIzMDIxLCJleHAiOjE1NjAzMjc4MjF9.RXopKiO--FwH2TlMLpAIZ3YMEqSovaLZokPxKW0MN3w"
+#Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name = "file0"; filename="cog.pxm"
+
+< /Users/pedro/Desktop/cog.pxm
+--WebAppBoundary
+
+###
+# group: posts
+# @name post index
+GET http://api-rest-laravel.local/api/post
+Content-Type: application/x-www-form-urlencoded
+
+###
+# group: posts
+# @name post store
+POST http://api-rest-laravel.local/api/post
+Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzU3Mzg5LCJleHAiOjE1NjAzNjIxODl9.-EYe5RmNTzgTP1T913r7FrqEVbifN7Wu4w9g1zfAaJw"
+
+json = {
+        "category_id": 1,
+        "title": "nuevo post",
+        "content": "contenido nuevo post",
+        "image": "1559723020cog.jpg"
+}
+
+###
+# group: posts
+# @name post show
+GET http://api-rest-laravel.local/api/post/1
+Content-Type: application/x-www-form-urlencoded
+
+###
+# group: posts
+# @name post update
+PUT http://api-rest-laravel.local/api/post/1?
+=
+Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzU3Mzg5LCJleHAiOjE1NjAzNjIxODl9.-EYe5RmNTzgTP1T913r7FrqEVbifN7Wu4w9g1zfAaJw"
+
+json = {
+        "category_id": 1,
+        "title": "Actulizado post",
+        "content": "contenido Actulizado post",
+        "image": "1559723020cog.jpg"
+}
+
+###
+# group: posts
+# @name post delete
+DELETE http://api-rest-laravel.local/api/post/1?
+=
+Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzU3Mzg5LCJleHAiOjE1NjAzNjIxODl9.-EYe5RmNTzgTP1T913r7FrqEVbifN7Wu4w9g1zfAaJw"
+
+json = {
+        "category_id": 1,
+        "title": "Actulizado post",
+        "content": "contenido Actulizado post",
+        "image": "1559723020cog.jpg"
+}
+
+###
+# group: posts
+# @name getimage
+GET http://api-rest-laravel.local/api/post/image/1560010472cog.jpg
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: posts
+# @name get posts by user
+GET http://api-rest-laravel.local/api/post/user/1
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: posts
+# @name get posts by category
+GET http://api-rest-laravel.local/api/post/category/1
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}

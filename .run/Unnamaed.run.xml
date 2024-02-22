@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Unnamaed" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" environment="dev" path="$PROJECT_DIR$/api/api-rest-laravel.http" requestIdentifier="login">
+    <method v="2" />
+  </configuration>
+</component>
