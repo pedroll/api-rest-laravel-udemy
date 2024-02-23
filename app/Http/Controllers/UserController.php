@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use App\Helpers\JwtAuthHelper;
 class UserController extends Controller
 {
     public function pruebas(): string
@@ -15,10 +15,7 @@ class UserController extends Controller
         return 'accion de pruebas en user-controler';
     }
 
-    /**
-     * @return JsonResponse
-     */
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         $data = [
             'status' => 'Error',
@@ -27,8 +24,14 @@ class UserController extends Controller
         ];
         //  recoger los datos por post
         $json = $request->input('json', null); // llega en una unica key "json"
-        $params = json_decode($json); // volcamos a un objeto
-        $params_array = json_decode($json, true); //asi a un array
+        try {
+            $params = json_decode($json, false, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+        } // volcamos a un objeto
+        try {
+            $params_array = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+        } //asi a un array
 
         // limpiar datos
         $params_array = array_map('trim', $params_array);
@@ -76,20 +79,18 @@ class UserController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    /**
-     * @return string
-     */
-    public function login()
+    public function login(Request $request): string
     {
+        $jwtAuth = new JwtAuthHelper();
+        echo $jwtAuth->signup();
+
         return 'accion de login en user-controler';
     }
 
     /**
      * Display a listing of the resource.
-     *
-     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $page = User::query()->paginate();
 
@@ -98,10 +99,8 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return JsonResponse
      */
-    public function store(CreateUserRequest $request)
+    public function store(CreateUserRequest $request): JsonResponse
     {
         $item = new User;
         $item->fill($request->validated());
@@ -112,11 +111,8 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return JsonResponse
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
         $item = User::query()->findOrFail($id);
 
@@ -125,11 +121,8 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return JsonResponse
      */
-    public function update($id, UpdateUserRequest $request)
+    public function update(int $id, UpdateUserRequest $request): JsonResponse
     {
         $item = User::query()->findOrFail($id);
         $item->update($request->validated());
@@ -139,11 +132,8 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
         return response()->json('Error', 400);
     }

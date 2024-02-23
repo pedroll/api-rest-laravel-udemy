@@ -13,6 +13,18 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public mixed $name;
+    public mixed $surname;
+    public mixed $email;
+    /**
+     * @var mixed|string
+     */
+    public mixed $password;
+    /**
+     * @var mixed|string
+     */
+    public mixed $role;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,7 +61,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany('App\Post');
     }
