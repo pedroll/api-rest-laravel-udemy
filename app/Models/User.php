@@ -13,6 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public mixed $id;
     public mixed $name;
     public mixed $surname;
     public mixed $email;
@@ -32,8 +33,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
+        'descripcion',
         'email',
         'password',
+        'role'
     ];
 
     /**

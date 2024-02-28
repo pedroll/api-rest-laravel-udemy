@@ -2,19 +2,24 @@
 
 ###
 # group: user
-# @name login
-POST http://api-rest-laravel.local/api/login
+# @name register
+POST http://api-rest-laravel.local/api/register?XDEBUG_SESSION_START=PHPSTORM
 Content-Type: application/x-www-form-urlencoded
+Cookie: XDEBUG_SESSION=PHPSTORM; curso_laravel_session=eyJpdiI6IjFJM0Z3M29wa0J6bWpuSWIwQmNZZUE9PSIsInZhbHVlIjoiVlI1d1JhZkNOVWJJSm5McENncVE3R0lCYWJiRDB3MkpTYzRkSW9iTlc3bndLemI4RDBaU3FVeHdka1VQOWtTU1Buc0xPajFGSXpiaC9OaE1MMktlMXUwQkNsU282czdxbzJpYzNLY1RJSzJpSll0SFd3NEJ5dmR2OW5YRzZLZVoiLCJtYWMiOiIxN2QyMDAwMWVmMzAwNjM4Mzc1NGQyMzZmNDZkYjEwYmI0YjgyOTRhNjE2YmU1YmU4MWQzNWIwYjJhNzU4MmZiIiwidGFnIjoiIn0%3D
+XDEBUG_SESSION: PHPSTORM;
+XDEBUG_SESSION_START: PHPSTORM;
 
-json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo1279@gmail.com","password" : "pedro"}
 
 ###
 # group: user
-# @name login Copy
+# @name login
+
 POST http://api-rest-laravel.local/api/login
 Content-Type: application/x-www-form-urlencoded
 
-json = {"name": "admin","surname": "LLongo","email": "admin@admin.com","password" : "admin112"}
+json = {"email": "pedrollongo179@gmail.com","password" : "pedro"}
+
 
 ###
 # group: user
@@ -28,14 +33,6 @@ json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","pa
 # group: user
 # @name detail
 GET http://api-rest-laravel.local/api/user/detail/4
-Content-Type: application/x-www-form-urlencoded
-
-json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
-
-###
-# group: user
-# @name register
-POST http://api-rest-laravel.local/api/register
 Content-Type: application/x-www-form-urlencoded
 
 json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}

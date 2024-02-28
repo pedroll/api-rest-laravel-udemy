@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\JwtAuthHelper;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Helpers\JwtAuthHelper;
+
 class UserController extends Controller
 {
     public function pruebas(): string
@@ -25,13 +26,19 @@ class UserController extends Controller
         //  recoger los datos por post
         $json = $request->input('json', null); // llega en una unica key "json"
         try {
-            $params = json_decode($json, false, 512, JSON_THROW_ON_ERROR);
+            $params = json_decode($json, false, 512, JSON_THROW_ON_ERROR); // volcamos a un objeto
+            $params_array = json_decode($json, true, 512, JSON_THROW_ON_ERROR); // asi a un array
         } catch (\JsonException $e) {
-        } // volcamos a un objeto
-        try {
-            $params_array = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
-        } //asi a un array
+            // Handle JSON decoding errors here
+            $data = [
+                'status' => 'Error',
+                'code' => 400,
+                'message' => $e->getMessage(),
+                'errors' => $e,
+            ];
+
+            return response()->json($data, $data['code']);
+        }
 
         // limpiar datos
         $params_array = array_map('trim', $params_array);
@@ -57,17 +64,31 @@ class UserController extends Controller
         } else {
             // si ha pasado la validacion
             //  cifrar contraseña
-            $password_hash = password_hash($params_array['password'], PASSWORD_BCRYPT, ['cost' => 4]);
-
+            //$password_hash = password_hash($params_array['password'], PASSWORD_BCRYPT, ['cost' => 4]);
+            //$password_hash = hash('sha256', $params_array['password']);
             // Crear usuario
+
+            //$params_array['password'] = $password_hash;
+            $params_array['role'] = 'ROLE_USER';
+
+            // solo funciona con fillables
             $user = new User;
-            $user->name = $params_array['name'];
-            $user->surname = $params_array['surname'];
-            $user->email = $params_array['email'];
-            $user->password = $password_hash;
-            $user->role = 'ROLE_USER';
-            // guardar usuario
+            $user->fill($params_array);
             $user->save();
+            // funciona con todas las propiedaes
+            // $user = new User;
+            // $user->setAttribute('name', $params_array['name'] );
+            // $user->setAttribute('surname', $params_array['surname'] );
+            // $user->setAttribute('email', 'pedrollongo16@gmail.com' );
+            // $user->setAttribute('role', 'ROLE_USER' );
+            // $user->setAttribute('password', $params_array['password'] );
+
+            // solo funciona con visibles
+            // $user->surname = $params_array['surname'];
+            // $user->email = $params_array['email'];
+            // $user->password = $password_hash;
+            // $user->role = 'ROLE_USER';
+            // $user->save();
 
             $data = [
                 'status' => 'Success',
@@ -82,9 +103,67 @@ class UserController extends Controller
     public function login(Request $request): string
     {
         $jwtAuth = new JwtAuthHelper();
-        echo $jwtAuth->signup();
 
-        return 'accion de login en user-controler';
+        // recibir datos por post
+        $json = $request->input('json', null); // llega
+        // $en una unica key "json"
+        try {
+            $params = json_decode($json, false);
+        } catch (\JsonException $e) {
+            $data = [
+                'status' => 'Error',
+                'code' => 400,
+                'message' => $e->getMessage(),
+                'errors' => $e,
+            ];
+
+            return response()->json($data, $data['code']);
+        } // volcamos a un objeto
+        try {
+            $params_array = json_decode($json, true);
+
+        } catch (\JsonException $e) {
+            $data = [
+                'status' => 'Error',
+                'code' => 400,
+                'message' => $e->getMessage(),
+                'errors' => $e,
+            ];
+
+            return response()->json($data, $data['code']);
+        } //asi a un array
+
+        // valdar datos
+        $validate = \Validator::make($params_array,
+            [
+                'email' => 'required|email',
+                'password' => 'required',
+
+            ]);
+        if ($validate->fails()) {
+            //si la validacion a fallado
+            $data = [
+                'status' => 'Error',
+                'code' => 400,
+                'message' => 'Error validacion de campos',
+                'errors' => $validate->errors(),
+            ];
+        } else {
+            //cifrar la password
+            //$password_hash = password_hash($params_array['password'], PASSWORD_BCRYPT, ['cost' => 4]);
+            //             $password_hash = hash('sha256', $params_array['password']);            // devolver datos o token
+            $testUser = new User;
+            $testUser->fill($params_array);
+            if (property_exists($params, 'getToken') and $params->getToken) {
+                $data = $jwtAuth->signup($params->email, $params_array['password'], false);
+                //$data['code'] = 200;
+            } else {
+                $data = $jwtAuth->signup($params->email, $params_array['password'], true);
+
+            }
+        }
+
+        return response()->json($data, 200);
     }
 
     /**
