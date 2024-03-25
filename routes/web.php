@@ -53,3 +53,4 @@ Route::get('/posts/pruebas', [PostController::class, 'pruebas']);
 // user controler
 Route::post('/api/register', [UserController::class, 'register']);
 Route::post('/api/login', [UserController::class, 'login']);
+Route::post('/api/update', [UserController::class, 'update']);

@@ -6,6 +6,7 @@ use App\Helpers\JwtAuthHelper;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -118,7 +119,8 @@ class UserController extends Controller
             ];
 
             return response()->json($data, $data['code']);
-        } // volcamos a un objeto
+        }
+        // volcamos a un objeto
         try {
             $params_array = json_decode($json, true);
 
@@ -155,12 +157,14 @@ class UserController extends Controller
             $testUser = new User;
             $testUser->fill($params_array);
             if (property_exists($params, 'getToken') and $params->getToken) {
-                $data = $jwtAuth->signup($params->email, $params_array['password'], false);
+                $data = $jwtAuth->signup($params->email, $params_array['password'], true);
                 //$data['code'] = 200;
             } else {
-                $data = $jwtAuth->signup($params->email, $params_array['password'], true);
+                $data = $jwtAuth->signup($params->email, $params_array['password'], false);
 
             }
+
+            return $data;
         }
 
         return response()->json($data, 200);
@@ -200,9 +204,28 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @throws AuthenticationException
      */
-    public function update(int $id, UpdateUserRequest $request): JsonResponse
+    //public function update(int $id, UpdateUserRequest $request): JsonResponse
+    public function update(UpdateUserRequest $request): JsonResponse
     {
+        $jwtAuth = new JwtAuthHelper();
+        $checkToken = $jwtAuth->checkToken( true);
+        if ($checkToken) {
+            echo 'Login correcto22';
+            //echo 'checktoken: '.var_dump($checkToken);
+        } else {
+            echo 'login incorrecto22';
+            //echo $checkToken;
+
+        }
+die();
+
+        if (! $checkToken) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $item = User::query()->findOrFail($id);
         $item->update($request->validated());
 

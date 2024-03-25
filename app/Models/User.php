@@ -14,13 +14,18 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public mixed $id;
+
     public mixed $name;
+
     public mixed $surname;
+
     public mixed $email;
+
     /**
      * @var mixed|string
      */
     public mixed $password;
+
     /**
      * @var mixed|string
      */
@@ -37,7 +42,7 @@ class User extends Authenticatable
         'descripcion',
         'email',
         'password',
-        'role'
+        'role',
     ];
 
     /**

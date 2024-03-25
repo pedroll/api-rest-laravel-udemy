@@ -18,7 +18,18 @@ json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo1279@gmail.com"
 POST http://api-rest-laravel.local/api/login
 Content-Type: application/x-www-form-urlencoded
 
-json = {"email": "pedrollongo179@gmail.com","password" : "pedro"}
+json = {"email": "pedrollongo1279@gmail.com","password" : "pedro", "getToken": "false"}
+
+
+###
+# group: user
+# @name update
+
+POST http://api-rest-laravel.local/api/update
+Content-Type: application/x-www-form-urlencoded
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMwLCJlbWFpbCI6InBlZHJvbGxvbmdvMTI3OUBnbWFpbC5jb20iLCJuYW1lIjoiUGVkcm8iLCJzdXJuYW1lIjoiTExvbmdvIiwiaWF0IjoxNzExMzU3OTI2LCJleHAiOjE3MTE5NjI3MjZ9.blWExmidQnjx3s3j3wT_AB06ZE-92HWHU_IAed9ib5o
+
+json = {"name": "Gonso"}
 
 
 ###
