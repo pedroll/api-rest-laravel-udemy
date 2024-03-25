@@ -210,26 +210,87 @@ class UserController extends Controller
     //public function update(int $id, UpdateUserRequest $request): JsonResponse
     public function update(UpdateUserRequest $request): JsonResponse
     {
+        $error = [
+            'status' => 'Error',
+            'code' => 401,
+            'message' => 'No autorizado',
+            'errors' => '',
+        ];
+        // Comprobar que el usuario este autorizado
         $jwtAuth = new JwtAuthHelper();
-        $checkToken = $jwtAuth->checkToken( true);
-        if ($checkToken) {
-            echo 'Login correcto22';
-            //echo 'checktoken: '.var_dump($checkToken);
-        } else {
-            echo 'login incorrecto22';
-            //echo $checkToken;
-
-        }
-die();
-
+        $checkToken = $jwtAuth->checkToken(true);
         if (! $checkToken) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json($error, $error['code']);
         }
 
-        $item = User::query()->findOrFail($id);
-        $item->update($request->validated());
+        // recoger datos post
+        $json = $request->input('json');
+        $params_array = json_decode($json, true);
+        if (! $params_array) {
+            $error = [
+                'status' => 'Error',
+                'code' => 400,
+                'message' => 'Datos actualizacion incorrectos',
+                'datos' => $json,
+            ];
+            return response()->json($error, $error['code']);
+        }
+        // validar datos
+        $validate = \Validator::make($params_array,
+            [
+                'name' => 'required|alpha',
+                'surname' => 'required|alpha',
+                'email' => "required|email|unique:users,id,$checkToken->sub", // validacion unigue con excepcion de este id
+                'descripcion' => 'alpha',
+            ]);
 
-        return response()->json(compact('item'));
+        if ($validate->fails()) {
+            $error = [
+                'status' => 'Error',
+                'code' => 400,
+                'message' => 'Error validacion de campos',
+                'errors' => $validate->errors(),
+            ];
+
+            return response()->json($error, $error['code']);
+        }
+        // quitar campos que no quiero actualizar
+        unset($params_array['email_verified_at']);
+        unset($params_array['password']);
+        unset($params_array['created_at']);
+        unset($params_array['updated_at']);
+        unset($params_array['remember_token']);
+
+        // actualizar datos en bbdd
+
+        try {
+            $user = User::query()->findOrFail($checkToken->sub);
+            //$user->update($request->validated());
+            $user->update($params_array);
+
+            // Handle update success
+            $data = [
+                'status' => 'Success',
+                'code' => 200,
+                'message' => 'Actualizado usuario correctamente',
+                'user' => $user
+            ];
+
+        } catch (\Exception $e) {
+            // Handle update failure
+            // Log the error or return an error response
+            $error = [
+                'status' => 'Error',
+                'code' => 400,
+                'message' => 'Error actualizando usuario',
+                'errors' => $e->getMessage(),
+            ];
+
+            return response()->json($error, $error['code']);
+        }
+        // devolver datos
+
+        return response()->json(compact('data'), $data['code']);
     }
 
     /**
