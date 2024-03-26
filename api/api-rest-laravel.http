@@ -27,7 +27,8 @@ json = {"email": "pedrollongo1279@gmail.com","password" : "pedro", "getToken": "
 
 PUT http://api-rest-laravel.local/api/user/update?XDEBUG_SESSION_START=PHPSTORM
 Content-Type: application/x-www-form-urlencoded
-Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMwLCJlbWFpbCI6InBlZHJvbGxvbmdvMTI3OUBnbWFpbC5jb20iLCJuYW1lIjoiUGVkcm8iLCJzdXJuYW1lIjoiTExvbmdvIiwiaWF0IjoxNzExMzU3OTI2LCJleHAiOjE3MTE5NjI3MjZ9.blWExmidQnjx3s3j3wT_AB06ZE-92HWHU_IAed9ib5o
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMwLCJlbWFpbCI6InBlZHJvbGxvbmdvMTI3OUBnbWFpbC5jb20iLCJuYW1lIjoiR29uc28iLCJzdXJuYW1lIjoiRnJhZ3VlbCIsImlhdCI6MTcxMTQ0NDgwMSwiZXhwIjoxNzEyMDQ5NjAxfQ.zMKBAEX58c6annSSwIfMtf0Z7tINdmw9H5_3cMfvfF4"
+
 
 json = {"name": "Gonso","surname": "Fraguel","email": "pedrollongo1279@gmail.com"}
 

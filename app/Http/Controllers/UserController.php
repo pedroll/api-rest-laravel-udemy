@@ -217,11 +217,7 @@ class UserController extends Controller
             'errors' => '',
         ];
         // Comprobar que el usuario este autorizado
-        $jwtAuth = new JwtAuthHelper();
-        $checkToken = $jwtAuth->checkToken(true);
-        if (! $checkToken) {
-            return response()->json($error, $error['code']);
-        }
+        // movido a middleware
 
         // recoger datos post
         $json = $request->input('json');
@@ -233,6 +229,7 @@ class UserController extends Controller
                 'message' => 'Datos actualizacion incorrectos',
                 'datos' => $json,
             ];
+
             return response()->json($error, $error['code']);
         }
         // validar datos
@@ -240,7 +237,7 @@ class UserController extends Controller
             [
                 'name' => 'required|alpha',
                 'surname' => 'required|alpha',
-                'email' => "required|email|unique:users,id,$checkToken->sub", // validacion unigue con excepcion de este id
+                'email' => 'required|email|unique:users,id,'.auth()->id(), // validacion unigue con excepcion de este id
                 'descripcion' => 'alpha',
             ]);
 
@@ -255,26 +252,27 @@ class UserController extends Controller
             return response()->json($error, $error['code']);
         }
         // quitar campos que no quiero actualizar
-        unset($params_array['email_verified_at']);
-        unset($params_array['password']);
-        unset($params_array['created_at']);
-        unset($params_array['updated_at']);
-        unset($params_array['remember_token']);
+        unset(
+            $params_array['email_verified_at'],
+            $params_array['password'],
+            $params_array['created_at'],
+            $params_array['updated_at'],
+            $params_array['remember_token']);
 
         // actualizar datos en bbdd
 
         try {
-            $user = User::query()->findOrFail($checkToken->sub);
-            //$user->update($request->validated());
+            $jwt = new JwtAuthHelper();
+            $user = User::findOrFail($jwt->id());
             $user->update($params_array);
-
             // Handle update success
             $data = [
                 'status' => 'Success',
                 'code' => 200,
                 'message' => 'Actualizado usuario correctamente',
-                'user' => $user
+                'user' => $user,
             ];
+            return response()->json(compact('data'), $data['code']);
 
         } catch (\Exception $e) {
             // Handle update failure
@@ -290,7 +288,18 @@ class UserController extends Controller
         }
         // devolver datos
 
-        return response()->json(compact('data'), $data['code']);
+    }
+
+    public function uploadAvatar()
+    {
+        $error = [
+            'status' => 'Error',
+            'code' => 400,
+            'message' => 'Error al subir imagen',
+        ];
+
+        return response()->json($error, $error['code']);
+
     }
 
     /**

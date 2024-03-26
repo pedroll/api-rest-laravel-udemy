@@ -23,6 +23,7 @@ Route::get('/', static function () {
 });
 
 Route::get('/welcome', static function () {
+    /** @noinspection ForgottenDebugOutputInspection */
     return phpinfo();
 });
 
@@ -54,3 +55,4 @@ Route::get('/posts/pruebas', [PostController::class, 'pruebas']);
 Route::post('/api/user/register', [UserController::class, 'register']);
 Route::post('/api/user/login', [UserController::class, 'login']);
 Route::put('/api/user/update', [UserController::class, 'update']);
+Route::post('/api/user/upload', ['middleware' => 'api.auth'], 'UserController@uploadAvatar');

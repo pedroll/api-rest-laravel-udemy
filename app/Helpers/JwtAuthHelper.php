@@ -157,5 +157,17 @@ $authHeader =str_replace('"','',$authHeader);
 
         return $this->decodeRawJWT($jwt);
     }
+
+    // function obtain current user id
+
+    public  function id(){
+        try {
+            // Return the retrieved id
+            return $this->checkToken(true)->sub;
+        } catch (\Exception $e) {
+            // Handle any exceptions that may occur during token validation
+            Log::error('Error in id function: ' . $e->getMessage());
+            return null;
+        }
 }
-// funcion update user
+}
