@@ -54,5 +54,5 @@ Route::get('/posts/pruebas', [PostController::class, 'pruebas']);
 // user controler
 Route::post('/api/user/register', [UserController::class, 'register']);
 Route::post('/api/user/login', [UserController::class, 'login']);
-Route::put('/api/user/update', [UserController::class, 'update']);
-Route::post('/api/user/upload', ['middleware' => 'api.auth'], 'UserController@uploadAvatar');
+Route::put('/api/user/update', [UserController::class, 'update'])->middleware('api.auth');
+Route::post('/api/user/upload', [UserController::class, 'uploadAvatar'])->middleware('api.auth');

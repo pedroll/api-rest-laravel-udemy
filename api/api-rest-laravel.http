@@ -55,13 +55,14 @@ json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","pa
 POST http://api-rest-laravel.local/api/user/upload?
     A=
     Content-Type: application/x-www-form-urlencoded
-Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzIzMDIxLCJleHAiOjE1NjAzMjc4MjF9.RXopKiO--FwH2TlMLpAIZ3YMEqSovaLZokPxKW0MN3w"
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMwLCJlbWFpbCI6InBlZHJvbGxvbmdvMTI3OUBnbWFpbC5jb20iLCJuYW1lIjoiR29uc28iLCJzdXJuYW1lIjoiRnJhZ3VlbCIsImlhdCI6MTcxMTQ2MDAwMiwiZXhwIjoxNzEyMDY0ODAyfQ.lbdKwZHucbesXNKFbh1tk_gFrC1L9y3N9WE3xxJEjNA"
+
 #Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
-Content-Disposition: form-data; name = "file0"; filename="cog.pxm"
+Content-Disposition: form-data; name = "file0"; filename="cog.png"
 
-< /Users/pedro/Desktop/cog.pxm
+< /Users/pedro/PhpstormProjects/decobelda/htpdocs/wp-content/themes/deco/framework/images/icons/cog.png
 --WebAppBoundary
 
 ###

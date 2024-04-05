@@ -9,15 +9,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-/**
- *
- */
 class ApiAuthMiddleware
 {
-
     /**
-     * @param Request $request
-     * @param Closure $next
      * @return Response|JsonResponse|RedirectResponse
      */
     public function handle(Request $request, Closure $next)
@@ -37,6 +31,7 @@ class ApiAuthMiddleware
             }
         } catch (\Exception $e) {
             $error['errors'] = $e->getMessage();
+
             return response()->json($error, $error['code']);
         }
 

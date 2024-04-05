@@ -272,6 +272,7 @@ class UserController extends Controller
                 'message' => 'Actualizado usuario correctamente',
                 'user' => $user,
             ];
+
             return response()->json(compact('data'), $data['code']);
 
         } catch (\Exception $e) {
@@ -290,16 +291,52 @@ class UserController extends Controller
 
     }
 
-    public function uploadAvatar()
+    /**
+     * Uploads an avatar image from the request.
+     *
+     * @param  Request  $request  The HTTP request containing the image file.
+     * @return JsonResponse Returns a JSON response indicating the status of the image upload.
+     */
+    public function uploadAvatar(Request $request)
     {
-        $error = [
-            'status' => 'Error',
-            'code' => 400,
-            'message' => 'Error al subir imagen',
-        ];
+        try {
+            $validatedData = $request->validate(['file0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
 
-        return response()->json($error, $error['code']);
+            //            $validate = \Validator::make(
+            //                $request->all(),
+            //                ['file0' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',]);
+            //            if ($validate->fails()){
+            //
+            //            }
 
+            if ($request->hasFile('file0')) {
+                $image = $request->file('file0');
+                $image_name = time().'_'.$image->getClientOriginalName();
+
+                if (\Storage::disk('users')->put($image_name, \File::get($image))) {
+                    $data = [
+                        'status' => 'Success',
+                        'code' => 201, // HTTP status code for Created
+                        'message' => 'Imagen subida correctamente',
+                        'image_name' => $image_name,
+                    ];
+                } else {
+                    throw new \Exception('Error al subir la imagen al disco');
+                }
+
+                return response()->json($data, $data['code']);
+            } else {
+                throw new \Exception('Archivo no encontrado en la solicitud');
+            }
+        } catch (\Exception $e) {
+            $error = [
+                'status' => 'Error',
+                'code' => 400, // HTTP status code for Bad Request
+                'message' => $e->getMessage(),
+            ];
+
+            return response()->json($error, $error['code']);
+        }
     }
 
     /**
