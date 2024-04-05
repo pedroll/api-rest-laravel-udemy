@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -338,6 +339,81 @@ class UserController extends Controller
             return response()->json($error, $error['code']);
         }
     }
+
+    /**
+     * Fetches the image for the specified user.
+     *
+     * @param  int  $id  The ID of the user whose image is being retrieved.
+     * @return JsonResponse Returns a JSON response containing the user's image data.
+     */
+    public function getImage2(int $id): JsonResponse
+    {
+        $user = User::query()->findOrFail($id);
+        $imagePath = $user->image_path;
+        // Check if the image exists
+        if ($imagePath) {
+            $image = \Storage::disk('users')->get($imagePath);
+            $headers = ['Content-Type' => 'image/png']; // Set the appropriate content type
+
+            return response($image, 200, $headers);
+        } else {
+            $error = [
+                'status' => 'Error',
+                'code' => 404, // HTTP status code for Not Found
+                'message' => 'Imagen no encontrada para este usuario',
+            ];
+
+            return response()->json($error, $error['code']);
+        }
+    }
+
+    /**
+     * Fetches the image for the specified filename.
+     *
+     * @param  string  $filename  The name of the file whose image is being retrieved.
+     * @return JsonResponse|Response
+     */
+    public function getImage(string $filename)
+    {
+        // Check if the image exists
+        if (! \Storage::disk('users')->exists($filename)) {
+            $error = [
+                'status' => 'Error',
+                'code' => 404, // HTTP status code for Not Found
+                'message' => 'Imagen no encontrada',
+            ];
+
+            return response()->json($error, $error['code']);
+        }
+
+        $image = \Storage::disk('users')->get($filename);
+        // get mime from $image for response
+        $image_mime = \Storage::disk('users')->mimeType($filename);
+        $headers = ['Content-Type' => $image_mime]; // Set the appropriate content type
+
+        return response($image, 200, $headers);
+    }
+
+
+    /**
+     * Get the details of a specific user.
+     *
+     * @param int $id The ID of the user whose details are being fetched.
+     * @return JsonResponse Returns a JSON response containing the user's details.
+     */
+    public function getUserDetails(int $id): JsonResponse
+    {
+        $user = User::query()->findOrFail($id);
+        $data = [
+            'status' => 'Success',
+            'code' => 200,
+            'message' => 'User details retrieved successfully',
+            'user' => $user,
+        ];
+        return response()->json(compact('data'), $data['code']);
+    }
+
+
 
     /**
      * Remove the specified resource from storage.
