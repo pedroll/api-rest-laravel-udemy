@@ -1,0 +1,41 @@
+# auth api-rest-laravel
+
+###
+# group: user
+# @name register
+POST {{host}}/api/user/register
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo1279@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name login
+POST {{host}}/api/user/login
+Content-Type: application/x-www-form-urlencoded
+
+json = {"email": "pedrollongo1279@gmail.com","password" : "pedro", "getToken": "false"}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Headers option exists", function () {
+        client.assert(response.body.hasOwnProperty("headers"), "Cannot find 'headers' option in response");
+    });
+
+    client.test("Response content-type is json", function () {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+    //Saving a cookie from the first Set-Cookie header
+    client.global.set("my_cookie", response.headers.valuesOf("Set-Cookie")[0]);
+%}
+
+###
+# group: user
+# @name upload Copy
+POST {{host}}/api/register
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}

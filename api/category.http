@@ -1,0 +1,35 @@
+# api-rest-laravel
+
+###
+# group: category
+# @name update Copy
+PUT {{host}}/api/user/update
+Content-Type: application/x-www-form-urlencoded
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvIiwic3VybmFtZSI6IkxMb25nbyIsImlhdCI6MTU1OTQ5OTk2NSwiZXhwIjoxNTYwMTA0NzY1fQ.Az9_vNePN-5Tnr3YkctNIjKJhG1hIUj0AXnSkw98yag
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"} &
+Authorization = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvIiwic3VybmFtZSI6IkxMb25nbyIsImlhdCI6MTU1OTQ5OTk2NSwiZXhwIjoxNTYwMTA0NzY1fQ.Az9_vNePN-5Tnr3YkctNIjKJhG1hIUj0AXnSkw98yag
+
+###
+# group: category
+# @name category index
+GET {{host}}/api/category
+Content-Type: application/x-www-form-urlencoded
+
+json = ''
+
+###
+# group: category
+# @name category store
+POST {{host}}/api/category
+Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMwLCJlbWFpbCI6InBlZHJvbGxvbmdvMTI3OUBnbWFpbC5jb20iLCJuYW1lIjoiR29uc28iLCJzdXJuYW1lIjoiRnJhZ3VlbCIsImlhdCI6MTcxMjU3MTYzNSwiZXhwIjoxNzEzMTc2NDM1fQ.mt77B8e6sY94jZOd7FJNyDTuAgVn9qZcSmJwdN2a1HY"
+
+json = {"name": "nueva categoria"}
+
+###
+# group: category
+# @name category show
+GET {{host}}/api/category/1
+Content-Type: application/x-www-form-urlencoded
+

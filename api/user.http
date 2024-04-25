@@ -1,0 +1,107 @@
+# api-rest-laravel
+
+###
+# group: user
+# @name register
+POST {{host}}/api/user/register
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo1279@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name login
+POST {{host}}/api/user/login
+Content-Type: application/x-www-form-urlencoded
+
+json = {"email": "pedrollongo1279@gmail.com","password" : "pedro", "getToken": "false"}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Headers option exists", function () {
+        client.assert(response.body.hasOwnProperty("headers"), "Cannot find 'headers' option in response");
+    });
+
+    client.test("Response content-type is json", function () {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+    //Saving a cookie from the first Set-Cookie header
+    client.global.set("my_cookie", response.headers.valuesOf("Set-Cookie")[0]);
+%}
+
+###
+# group: user
+# @name update
+
+PUT {{host}}/api/user/update
+Content-Type: application/x-www-form-urlencoded
+Authorization: {{token}}
+
+
+json = {"name": "Gonso","surname": "Fraguel","email": "pedrollongo1279@gmail.com"}
+
+
+###
+# group: user
+# @name getimage
+GET {{host}}/api/user/avatar/1559723020cog.jpg
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name detail
+GET {{host}}/api/user/detail/4
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name upload
+POST {{host}}/api/user/upload
+Content-Type: application/x-www-form-urlencoded
+Authorization: "{{token}}"
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name = "file0"; filename="cog.png"
+
+< /Users/pedro/PhpstormProjects/decobelda/htpdocs/wp-content/themes/deco/framework/images/icons/cog.png
+--WebAppBoundary
+
+###
+# group: user
+# @name upload Copy
+POST {{host}}/api/register
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: user
+# @name update
+PUT {{host}}/api/user/update
+Content-Type: application/x-www-form-urlencoded
+Authorization: {{token}}
+
+json = {"name": "juan5","juan5": "LLongo","email": "juan@juan.com","password" : "juan112"}
+
+
+###
+# group: posts
+# @name upload Copy
+POST {{host}}/api/user/upload
+Content-Type: application/x-www-form-urlencoded
+Authorization: {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name = "file0"; filename="cog.pxm"
+
+< /Users/pedro/Desktop/cog.pxm
+--WebAppBoundary

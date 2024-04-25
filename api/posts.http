@@ -1,0 +1,79 @@
+# api-rest-laravel
+
+###
+# group: posts
+# @name post index
+GET {{host}}/api/post
+Content-Type: application/x-www-form-urlencoded
+
+###
+# group: posts
+# @name post store
+POST {{host}}/api/post
+Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzU3Mzg5LCJleHAiOjE1NjAzNjIxODl9.-EYe5RmNTzgTP1T913r7FrqEVbifN7Wu4w9g1zfAaJw"
+
+json = {
+        "category_id": 1,
+        "title": "nuevo post",
+        "content": "contenido nuevo post",
+        "image": "1559723020cog.jpg"
+}
+
+###
+# group: posts
+# @name post show
+GET {{host}}/api/post/1
+Content-Type: application/x-www-form-urlencoded
+
+###
+# group: posts
+# @name post update
+PUT {{host}}/api/post/1
+Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzU3Mzg5LCJleHAiOjE1NjAzNjIxODl9.-EYe5RmNTzgTP1T913r7FrqEVbifN7Wu4w9g1zfAaJw"
+
+json = {
+        "category_id": 1,
+        "title": "Actulizado post",
+        "content": "contenido Actulizado post",
+        "image": "1559723020cog.jpg"
+}
+
+###
+# group: posts
+# @name post delete
+DELETE {{host}}/api/post/1
+Content-Type: application/x-www-form-urlencoded
+Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImVtYWlsIjoicGVkcm9sbG9uZ29AZ21haWwuY29tIiwibmFtZSI6IlBlZHJvMiIsInN1cm5hbWUiOiJMTG9uZ28yIiwiaWF0IjoxNTU5NzU3Mzg5LCJleHAiOjE1NjAzNjIxODl9.-EYe5RmNTzgTP1T913r7FrqEVbifN7Wu4w9g1zfAaJw"
+
+json = {
+        "category_id": 1,
+        "title": "Actulizado post",
+        "content": "contenido Actulizado post",
+        "image": "1559723020cog.jpg"
+}
+
+###
+# group: posts
+# @name getimage
+GET {{host}}/api/post/image/1560010472cog.jpg
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: posts
+# @name get posts by user
+GET {{host}}/api/post/user/1
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
+
+###
+# group: posts
+# @name get posts by category
+GET {{host}}/api/post/category/1
+Content-Type: application/x-www-form-urlencoded
+
+json = {"name": "Pedro","surname": "LLongo","email": "pedrollongo@gmail.com","password" : "pedro"}
