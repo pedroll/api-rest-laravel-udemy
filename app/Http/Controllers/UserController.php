@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\JwtAuthHelper;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     public function pruebas(): string
     {
@@ -20,11 +22,6 @@ class UserController extends Controller
 
     public function register(Request $request): JsonResponse
     {
-        $data = [
-            'status' => 'Error',
-            'code' => 404,
-            'message' => 'El usuario NO se ha creado',
-        ];
         //  recoger los datos por post
         $json = $request->input('json', null); // llega en una unica key "json"
         try {
@@ -33,13 +30,11 @@ class UserController extends Controller
         } catch (\JsonException $e) {
             // Handle JSON decoding errors here
             $data = [
-                'status' => 'Error',
-                'code' => 400,
                 'message' => $e->getMessage(),
                 'errors' => $e,
             ];
 
-            return response()->json($data, $data['code']);
+            return $this->sendError('El usuario NO se ha creado', $data['errors']);
         }
 
         // limpiar datos
@@ -57,49 +52,24 @@ class UserController extends Controller
 
         if ($validate->fails()) {
             //si la validacion a fallado
-            $data = [
-                'status' => 'Error',
-                'code' => 400,
-                'message' => 'Error validacion de campos',
-                'errors' => $validate->errors(),
-            ];
-        } else {
-            // si ha pasado la validacion
-            //  cifrar contraseña
-            //$password_hash = password_hash($params_array['password'], PASSWORD_BCRYPT, ['cost' => 4]);
-            //$password_hash = hash('sha256', $params_array['password']);
-            // Crear usuario
-
-            //$params_array['password'] = $password_hash;
-            $params_array['role'] = 'ROLE_USER';
-
-            // solo funciona con fillables
-            $user = new User;
-            $user->fill($params_array);
-            $user->save();
-            // funciona con todas las propiedaes
-            // $user = new User;
-            // $user->setAttribute('name', $params_array['name'] );
-            // $user->setAttribute('surname', $params_array['surname'] );
-            // $user->setAttribute('email', 'pedrollongo16@gmail.com' );
-            // $user->setAttribute('role', 'ROLE_USER' );
-            // $user->setAttribute('password', $params_array['password'] );
-
-            // solo funciona con visibles
-            // $user->surname = $params_array['surname'];
-            // $user->email = $params_array['email'];
-            // $user->password = $password_hash;
-            // $user->role = 'ROLE_USER';
-            // $user->save();
-
-            $data = [
-                'status' => 'Success',
-                'code' => 200,
-                'message' => 'El usuario se ha creado correctamente',
-            ];
+            return $this->sendError('Error validacion de campos', $validate->errors(), 422);
         }
 
-        return response()->json($data, $data['code']);
+        // si ha pasado la validacion
+        //  cifrar contraseña
+        //$password_hash = password_hash($params_array['password'], PASSWORD_BCRYPT, ['cost' => 4]);
+        //$password_hash = hash('sha256', $params_array['password']);
+        // Crear usuario
+
+        //$params_array['password'] = $password_hash;
+        $params_array['role'] = 'ROLE_USER';
+
+        // solo funciona con fillables
+        $user = new User;
+        $user->fill($params_array);
+        $user->save();
+
+        return $this->sendResponse(['user' => $user], 'El usuario se ha creado correctamente');
     }
 
     public function login(Request $request): string
@@ -111,47 +81,18 @@ class UserController extends Controller
         // $en una unica key "json"
         try {
             $params = json_decode($json, false);
-        } catch (\JsonException $e) {
-            $data = [
-                'status' => 'Error',
-                'code' => 400,
-                'message' => $e->getMessage(),
-                'errors' => $e,
-            ];
-
-            return response()->json($data, $data['code']);
-        }
-        // volcamos a un objeto
-        try {
+            // volcamos a un objeto
             $params_array = json_decode($json, true);
-
-        } catch (\JsonException $e) {
-            $data = [
-                'status' => 'Error',
-                'code' => 400,
-                'message' => $e->getMessage(),
-                'errors' => $e,
-            ];
-
-            return response()->json($data, $data['code']);
-        } //asi a un array
-
-        // valdar datos
-        $validate = \Validator::make($params_array,
-            [
-                'email' => 'required|email',
-                'password' => 'required',
-
-            ]);
-        if ($validate->fails()) {
-            //si la validacion a fallado
-            $data = [
-                'status' => 'Error',
-                'code' => 400,
-                'message' => 'Error validacion de campos',
-                'errors' => $validate->errors(),
-            ];
-        } else {
+            // valdar datos
+            $validate = \Validator::make($params_array,
+                [
+                    'email' => 'required|email',
+                    'password' => 'required',
+                ]);
+            if ($validate->fails()) {
+                //si la validacion a fallado
+                return $this->sendError('Validation Error.', $validate->errors(), 422);
+            }
             //cifrar la password
             //$password_hash = password_hash($params_array['password'], PASSWORD_BCRYPT, ['cost' => 4]);
             //             $password_hash = hash('sha256', $params_array['password']);            // devolver datos o token
@@ -162,13 +103,13 @@ class UserController extends Controller
                 //$data['code'] = 200;
             } else {
                 $data = $jwtAuth->signup($params->email, $params_array['password'], false);
-
             }
-
-            return $data;
+        } catch (\Exception $e) {
+            return $this->sendError('Login Error.', $e->errors());
         }
 
-        return response()->json($data, 200);
+        return $this->sendResponse(['token' => $data['token']], 'Login successfull');
+
     }
 
     /**
@@ -178,7 +119,7 @@ class UserController extends Controller
     {
         $page = User::query()->paginate();
 
-        return response()->json(compact('page'));
+        return $this->sendResponse(['userspage' => $page], 'Listado de usuarios');
     }
 
     /**
@@ -190,7 +131,7 @@ class UserController extends Controller
         $item->fill($request->validated());
         $item->save();
 
-        return response()->json(compact('item'));
+        return $this->sendResponse(['user' => $item], 'Usuario creado');
     }
 
     /**
@@ -200,7 +141,7 @@ class UserController extends Controller
     {
         $item = User::query()->findOrFail($id);
 
-        return response()->json(compact('item'));
+        return $this->sendResponse(['user' => $item], 'Usuario mostrado');
     }
 
     /**
@@ -224,14 +165,7 @@ class UserController extends Controller
         $json = $request->input('json');
         $params_array = json_decode($json, true);
         if (! $params_array) {
-            $error = [
-                'status' => 'Error',
-                'code' => 400,
-                'message' => 'Datos actualizacion incorrectos',
-                'datos' => $json,
-            ];
-
-            return response()->json($error, $error['code']);
+            return $this->sendError('Datos actualizacion incorrectos jsondecode', ['json' => $json]);
         }
         // validar datos
         $validate = \Validator::make($params_array,
@@ -243,14 +177,7 @@ class UserController extends Controller
             ]);
 
         if ($validate->fails()) {
-            $error = [
-                'status' => 'Error',
-                'code' => 400,
-                'message' => 'Error validacion de campos',
-                'errors' => $validate->errors(),
-            ];
-
-            return response()->json($error, $error['code']);
+            return $this->sendError('Error validacion de campos', $validate->errors(), 422);
         }
         // quitar campos que no quiero actualizar
         unset(
@@ -267,26 +194,13 @@ class UserController extends Controller
             $user = User::findOrFail($jwt->id());
             $user->update($params_array);
             // Handle update success
-            $data = [
-                'status' => 'Success',
-                'code' => 200,
-                'message' => 'Actualizado usuario correctamente',
-                'user' => $user,
-            ];
 
-            return response()->json(compact('data'), $data['code']);
+            return $this->sendResponse(['user' => $user], 'Actualizado usuario correctamente');
 
         } catch (\Exception $e) {
             // Handle update failure
             // Log the error or return an error response
-            $error = [
-                'status' => 'Error',
-                'code' => 400,
-                'message' => 'Error actualizando usuario',
-                'errors' => $e->getMessage(),
-            ];
-
-            return response()->json($error, $error['code']);
+            return $this->sendError('Error actualizando usuario', ['error' => $e->getMessage()]);
         }
         // devolver datos
 
@@ -301,34 +215,19 @@ class UserController extends Controller
     public function uploadAvatar(Request $request)
     {
         try {
-            $validatedData = $request->validate(['file0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
+            // validator input file0
+            $validator = \Validator::make($request->all(), ['file0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
 
-            //            $validate = \Validator::make(
-            //                $request->all(),
-            //                ['file0' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',]);
-            //            if ($validate->fails()){
-            //
-            //            }
-
-            if ($request->hasFile('file0')) {
-                $image = $request->file('file0');
-                $image_name = time().'_'.$image->getClientOriginalName();
-
-                if (\Storage::disk('users')->put($image_name, \File::get($image))) {
-                    $data = [
-                        'status' => 'Success',
-                        'code' => 201, // HTTP status code for Created
-                        'message' => 'Imagen subida correctamente',
-                        'image_name' => $image_name,
-                    ];
-                } else {
-                    throw new \Exception('Error al subir la imagen al disco');
-                }
-
-                return response()->json($data, $data['code']);
-            } else {
-                throw new \Exception('Archivo no encontrado en la solicitud');
+            if ($validator->fails()) {
+                return $this->sendError('Error validacion de campos', $validator->errors(), 422);
             }
+
+            $image = $request->file('file0');
+            $image_name = time().'_'.$image->getClientOriginalName();
+
+            \Storage::disk('users')->put($image_name, \File::get($image));
+
+            return $this->sendResponse(['imagen' => $image_name], 'Imagen subida correctamente', 201);
         } catch (\Exception $e) {
             $error = [
                 'status' => 'Error',
@@ -336,7 +235,7 @@ class UserController extends Controller
                 'message' => $e->getMessage(),
             ];
 
-            return response()->json($error, $error['code']);
+            return $this->sendError($e->getMessage(), $e->errors());
         }
     }
 
@@ -348,23 +247,22 @@ class UserController extends Controller
      */
     public function getImage2(int $id): JsonResponse
     {
-        $user = User::query()->findOrFail($id);
-        $imagePath = $user->image_path;
-        // Check if the image exists
-        if ($imagePath) {
+        try {
+
+            $user = User::query()->findOrFail($id);
+            $imagePath = $user->image_path;
+            // Check if the image exists
+
             $image = \Storage::disk('users')->get($imagePath);
             $headers = ['Content-Type' => 'image/png']; // Set the appropriate content type
-
-            return response($image, 200, $headers);
-        } else {
-            $error = [
-                'status' => 'Error',
-                'code' => 404, // HTTP status code for Not Found
-                'message' => 'Imagen no encontrada para este usuario',
-            ];
-
-            return response()->json($error, $error['code']);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError('Usuario no encontrado', ['id' => $e->getIds()]);
+        } catch (\Exception $e) {
+            return $this->sendError('Error al encontrar imagen', $e->getTrace());
         }
+
+        return $this->sendResponse(['image' => $image], 'imagen recuperada correctamente');
+
     }
 
     /**
@@ -383,7 +281,7 @@ class UserController extends Controller
                 'message' => 'Imagen no encontrada',
             ];
 
-            return response()->json($error, $error['code']);
+            return $this->sendResponse($error, $error['code']);
         }
 
         $image = \Storage::disk('users')->get($filename);
@@ -394,32 +292,24 @@ class UserController extends Controller
         return response($image, 200, $headers);
     }
 
-
     /**
      * Get the details of a specific user.
      *
-     * @param int $id The ID of the user whose details are being fetched.
+     * @param  int  $id  The ID of the user whose details are being fetched.
      * @return JsonResponse Returns a JSON response containing the user's details.
      */
     public function getUserDetails(int $id): JsonResponse
     {
         $user = User::query()->findOrFail($id);
-        $data = [
-            'status' => 'Success',
-            'code' => 200,
-            'message' => 'User details retrieved successfully',
-            'user' => $user,
-        ];
-        return response()->json(compact('data'), $data['code']);
+
+        return $this->sendResponse(['user' => $user], 'Detalles de usuario');
     }
-
-
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(int $id): JsonResponse
     {
-        return response()->json('Error', 400);
+        return $this->sendError('Error funcion no implementada');
     }
 }
